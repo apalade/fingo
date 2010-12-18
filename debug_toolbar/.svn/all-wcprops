@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar
+END
+urls.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/urls.pyc
+END
+middleware.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/middleware.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/__init__.py
+END
+middleware.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/middleware.pyc
+END
+views.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/views.pyc
+END
+__init__.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/__init__.pyc
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/urls.py
+END
+models.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/models.pyc
+END

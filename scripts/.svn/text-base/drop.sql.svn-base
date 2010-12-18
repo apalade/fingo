@@ -1,0 +1,12 @@
+BEGIN;
+DROP TABLE "comments_comments";
+DROP TABLE "friends_friends";
+DROP TABLE "message_message";
+DROP TABLE "news_vote";
+DROP TABLE "news_news";
+DROP TABLE "news_image";
+DROP TABLE "profile_invites";
+DROP TABLE "profile_profile";
+DROP TABLE "profile_city";
+DROP TABLE "profile_county";
+COMMIT;

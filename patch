@@ -1,0 +1,44 @@
+Index: context.py
+===================================================================
+--- context.py	(revision 151)
++++ context.py	(revision 152)
+@@ -39,15 +39,24 @@
+ 
+     gossips = News.objects.filter(about_id__isnull=False).order_by('-time')[:const.NewsConst.Scroll.NEW_GOSSIP_MAX]
+     for gossip in gossips:
+-      text.append(const.NewsConst.Scroll.NEW_GOSSIP %
++      if gossip.anonymous:
++        text.append(const.NewsConst.Scroll.NEW_GOSSIP_ANONYMOUS %
+                   (
+-                  '/' + util.escape_html(gossip.user.username),
+-                  util.escape_html(prettyuser.user_or_first_name(gossip.user)),
+                   '/' + util.escape_html(gossip.about_id.username),
+                   util.escape_html(prettyuser.user_or_first_name(gossip.about_id)),
+                   '/profile/?n=' + util.escape_html(str(gossip.id)),
+                   util.escape_html(gossip.title)
+                   ))
++      else:
++        text.append(const.NewsConst.Scroll.NEW_GOSSIP %
++                    (
++                    '/' + util.escape_html(gossip.user.username),
++                    util.escape_html(prettyuser.user_or_first_name(gossip.user)),
++                    '/' + util.escape_html(gossip.about_id.username),
++                    util.escape_html(prettyuser.user_or_first_name(gossip.about_id)),
++                    '/profile/?n=' + util.escape_html(str(gossip.id)),
++                    util.escape_html(gossip.title)
++                    ))
+     new_users = User.objects.order_by('-date_joined')[:const.NewsConst.Scroll.NEW_USER_MAX]
+     for new_user in new_users:
+       text.append(const.NewsConst.Scroll.NEW_USER %
+Index: const.py
+===================================================================
+--- const.py	(revision 151)
++++ const.py	(revision 152)
+@@ -56,6 +56,7 @@
+     NEW_USER = u"<a href=\"%s\">%s</a> s-a înregistrat pe Fingo.ro"
+     NEW_USER_MAX = 3
+     NEW_GOSSIP = u"<a href=\"%s\">%s</a> a bârfit despre <a href=\"%s\">%s</a> (<a href=\"%s\">%s</a>)"
++    NEW_GOSSIP_ANONYMOUS = u"S-a bârfit despre <a href=\"%s\">%s</a> (<a href=\"%s\">%s</a>)"
+     NEW_GOSSIP_MAX = 4
+     NEW_FRIEND = u"<a href=\"%s\">%s</a> este prieten cu <a href=\"%s\">%s</a>"
+     NEW_FRIEND_MAX = 3

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/fingo/!svn/ver/26/trunk/fingo/friends
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/fingo/!svn/ver/76/trunk/fingo/friends/admin.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/fingo/!svn/ver/98/trunk/fingo/friends/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/fingo/!svn/ver/7/trunk/fingo/friends/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/fingo/!svn/ver/7/trunk/fingo/friends/tests.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/fingo/!svn/ver/76/trunk/fingo/friends/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/fingo/!svn/ver/70/trunk/fingo/friends/urls.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/fingo/!svn/ver/15/trunk/fingo/friends/forms.py
+END

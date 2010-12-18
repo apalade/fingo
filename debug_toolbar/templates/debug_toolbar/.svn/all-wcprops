@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/templates/debug_toolbar
+END
+redirect.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/templates/debug_toolbar/redirect.html
+END
+base.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/templates/debug_toolbar/base.html
+END

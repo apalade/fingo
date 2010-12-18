@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/management/commands
+END
+debugsqlshell.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/management/commands/debugsqlshell.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/fingo/!svn/ver/31/trunk/fingo/debug_toolbar/management/commands/__init__.py
+END
