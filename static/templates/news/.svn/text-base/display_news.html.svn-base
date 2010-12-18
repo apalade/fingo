@@ -1,8 +1,0 @@
-{% for n in news %}
-  {% include 'news/single_news.html' %}
-{% empty %}
-  Momentan nu (mai) sunt știri disponibile.
-{% endfor %}
-{% if has_more %}
-<a href="#" id="more_link" onclick="return false;">Mai multe</a>
-{% endif %}

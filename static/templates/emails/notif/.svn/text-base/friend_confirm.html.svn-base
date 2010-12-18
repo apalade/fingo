@@ -1,9 +1,0 @@
-Salut,
-<br/><br/>
-<a href="http://fingo.ro{% url profile-view username %}">{{name}}</a>
-ți-a acceptat cererea și este de acum prieten cu tine pe Fingo.
-<a href="http://fingo.ro{% url profile-view username %}">Aici</a>
-poți vedea mai multe detalii despre
-<a href="http://fingo.ro{% url profile-view username %}">{{name}}</a>.
-
-{% include 'emails/notif/base.html' %}

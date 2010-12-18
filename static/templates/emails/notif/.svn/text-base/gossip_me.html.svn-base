@@ -1,8 +1,0 @@
-Salut,
-<br/><br/>
-Să știi că <a href="http://fingo.ro{% url profile-view username %}">{{name}}</a>
-te-a cam bârfit pe <a href="http://fingo.ro">Fingo.ro</a>. Intră pe
-<a href="http://fingo.ro{% url profile-index %}">profilul tău</a>
-ca să vezi ultimele bârfe despre tine.
-
-{% include 'emails/notif/base.html' %}

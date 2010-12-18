@@ -1,7 +1,0 @@
-Salut,
-<br/><br/>
-Cineva vrea să fie prieten cu tine.<br/>
-Apasă <a href="http://www.fingo.ro/friends">aici</a> ca să vezi cine.
-
-{% include 'emails/notif/base.html' %}
-
