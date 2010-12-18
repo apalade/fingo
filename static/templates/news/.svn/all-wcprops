@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/fingo/!svn/ver/45/trunk/static/templates/news
+END
+single_news.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/fingo/!svn/ver/172/trunk/static/templates/news/single_news.html
+END
+display_news.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/fingo/!svn/ver/65/trunk/static/templates/news/display_news.html
+END
+add_inline_button.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/fingo/!svn/ver/48/trunk/static/templates/news/add_inline_button.html
+END
+add_inline.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/fingo/!svn/ver/91/trunk/static/templates/news/add_inline.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/fingo/!svn/ver/173/trunk/static/templates/news/index.html
+END
+add.html
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/fingo/!svn/ver/48/trunk/static/templates/news/add.html
+END
+display_comments.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/fingo/!svn/ver/128/trunk/static/templates/news/display_comments.html
+END

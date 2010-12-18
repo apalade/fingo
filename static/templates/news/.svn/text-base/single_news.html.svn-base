@@ -1,0 +1,140 @@
+{% load prettyuser %}
+{% load prettytime %}
+{% load prettylink %}
+
+<div class="barfa">
+  <div class="poza_left">
+    {% if n.about_id %}
+    <a href="{% url profile-view n.about_id.username %}"><img src="{{n.about_id.get_profile.photo.thumbnail.url}}" alt="poza" title="{{n.about_id|user_or_name}}"/> </a>
+    {% else %}
+    <img src="{{MEDIA_URL}}images/about_anon.jpg" />
+    {% endif %}
+  </div>
+  <div class="info_right">
+    <div class="titlu_barfa">
+      <div class="intro">
+        <a name="n{{n.id}}"></a>
+        {% if n.anonymous %}
+        S-a
+        {% else %}
+          {% if n.user.id == user.id %}
+           <b> Eu </b> am
+          {% else %}
+            <a href="{% url profile-view n.user.username %}">
+              {{n.user|user_or_name}}
+            </a>
+            a
+          {% endif %}
+        {% endif %}
+        {% if 1 == n.source %}
+          ales o <a href="{{app_url}}" target="_blank">bârfă de-a gata</a> despre
+        {% else %}
+          bârfit despre
+        {% endif %}
+        {% if n.about_id %}
+        {% if n.about_id.id == user.id %}
+        <b> mine </b>
+        {% else %}
+        <a href="{% url profile-view n.about_id.username %}"> {{n.about_id|user_or_name}}</a>
+        {% endif %}
+        {% else %}
+        <b>{{n.about_name}}</b>
+        {% endif %}
+      </div>
+      <div class="titlu"><a href="{% url profile-index %}?n={{n.id}}">{{ n.title }}</a></div>
+    </div>
+    <div class="helper_text_barfa"></div>
+    <div class="text_barfa">
+
+      <div class="poze_barfa">
+
+        {% if n.images %}
+        {% with n.images|first as first_image %}
+        <a class="gallery" rel="group{{n.id}}" href="{{first_image.image.url}}">
+          <img src="{{first_image.image.thumbnail.url }}" alt="{{n.title|capfirst}}"id="first_image_{{n.id}}"/>
+        </a>
+        {% endwith %}
+        {% for image in n.images|slice:"1:" %}
+        {% comment %} TODO: hide images and show only the first two {% endcomment %}
+        <div style="display:none">
+          <a class="gallery" rel="group{{n.id}}" href="{{image.image.url}}" onclick="return false;">
+            <img src="{{ image.image.thumbnail.url }}" alt="{{n.title|capfirst}}"/>
+          </a>
+        </div>
+        {% endfor %}
+        <a href="#" onclick="$('#first_image_{{n.id}}').click(); return false;">
+          {% if n.images|length > 1 %}
+          Vezi fotografiile ({{n.images|length}})
+          {% else %}
+          Vezi fotografia
+          {% endif %}
+        </a>
+        {% if n.video %}
+        <a href="{{n.video}}" target="_blank">Vezi video</a>
+        {% endif %}
+        {% else %}
+        {% if n.video %}
+        <img src="{{MEDIA_URL}}images/video_default.png" alt="Video"/>
+        <a href="{{n.video}}" target="_blank">Vezi video</a>
+        {% endif %}
+        {% endif %}
+
+      </div>
+
+      {{ n.text|urlizetrunc:30|url_target_blank|linebreaksbr }}
+    </div>
+    <div class="clear"></div>
+    <div class="data_barfei"> {{ n.time|default_time }} </div>
+    <div class="optiuni_barfa" id="optiuni_barfa_{{n.id}}">
+      <div class="social_networking">
+        <div class="promo_fb" onmouseover="like_mouse_over({{n.id}});">
+          <fb:like href="{{full_url_prefix}}{% url profile-index %}/?n={{n.id}}" show_faces="false">
+          </fb:like>
+        </div>
+      </div>
+    
+      {% if not user.is_authenticated %}
+      {% if n.comments_count > 0 %}
+      <div class="nr_comm">{{ n.comments_count }} comentari{{n.comments_count|pluralize:"u,i"}}</div>
+      <a class="view_all_comments" href="{% url profile-index %}?n={{n.id}}"> vezi toate comentariile </a>
+      {% else %}
+      <a class="view_all_comments" href="{% url profile-index %}?n={{n.id}}"> fii primul care comentează bârfa asta </a>
+      {% endif %}
+      {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+    <div class="comments" id="comments_{{n.id}}">
+    </div>
+    <div class="comm" id="add_comment_fake_{{n.id}}">
+      <div class="comm_poza">
+        <a href="{% url profile-view user.username %}">
+          <img src="{{user.get_profile.photo.thumbnail.url}}" title="{{user|user_or_name}} poza" alt="{{user|user_or_name}} poza"/>
+        </a>
+      </div>
+      <div class="add_comment_single_news" id="add_comment_{{n.id}}"
+           onclick="$('#add_comment_form_{{n.id}}').show(); $('#comment_text_input_{{n.id}}').focus(); $('#add_comment_fake_{{n.id}}').hide()">
+        <a href="#" onclick="$('#comments_show_all').hide();return false;"> adaugă un comentariu </a>
+      </div>
+    </div>
+
+    <div class="add_comment_form" id="add_comment_form_{{n.id}}">
+      <div class="comm">
+        <div class="comm_poza">
+          <a href="{% url profile-view user.username %}">
+            <img src="{{user.get_profile.photo.thumbnail.url}}" title="{{user|user_or_name}} poza"/>
+          </a>
+        </div>
+        <div class="comm_text_show">
+          <div class="dialog-open"></div>
+          <form method="" action="">
+            <textarea rows="2" class="comment_text_input" id="comment_text_input_{{n.id}}"></textarea>
+          </form>
+          <div class="text">
+            <a class="save_comment"  href="#" onclick="add_comment({{n.id}}); return false;">salvează</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>

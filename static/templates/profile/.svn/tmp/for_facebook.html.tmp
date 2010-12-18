@@ -1,0 +1,24 @@
+<!-- specially crafted for facebook -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>{{req_news.title}}</title>
+    <meta property="og:title">{{req_news.title}}</meta>
+    <meta property="og:type">article</meta>
+    <meta property="og:image">
+      {% with req_news.images|first as first_image %}
+        {{ first_image.image.thumbnail.url }}
+      {% endwith %}
+    </meta>
+    <!--
+    <meta property="og:url">
+    </meta>
+    -->
+    <meta property="og:site_name">
+      Fingo.ro - resursa ta de barfe zilnice
+    </meta>
+  </head>
+  <body>
+  </body>
+</html>

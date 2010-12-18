@@ -1,0 +1,5 @@
+#titleApp{margin-left: 100px;} /* fix pt double margin bug in IE6 */
+#topRightWrapper{ width: 200px;}
+#fb{ height: 90px;}
+#headerApp{ width: 750px; height: 160px;}
+#mainContent{ margin-left: 6px; }

@@ -1,0 +1,54 @@
+{% load prettyuser %}
+
+{% for n in news %}
+<a name="n{{n.id}}"></a>
+{% if n.anonymous %}
+S-a
+{% else %}
+  {% if n.user.id == user.id %}
+    <strong> Eu </strong> am
+  {% else %}
+    <a href="{% url profile-view n.user.username %}">
+      {{n.user|user_or_name}}
+    </a>
+    a
+  {% endif %}
+{% endif %}
+barfit despre
+{% if n.about_id %}
+  {% if n.about_id.id == user.id %}
+    <strong> mine </strong>
+  {% else %}
+    <a href="{% url profile-view n.about_id.username %}"> {{n.about_id|user_or_name}}</a>
+  {% endif %}
+{% else %}
+  <strong>{{n.about_name}}</strong>
+{% endif %}
+<br/>
+{{ n.title }} <br/>
+{{ n.text }}
+
+{% if n.video %}
+<a href="{{n.video}}">Vezi video</a>
+{% endif %}
+
+{% for image in n.images %}
+{% comment %} TODO: hide images and show only the first two {% endcomment %}
+<img src="{{ image.image.thumbnail.url }}" alt="Poza - {{n.title}}"/>
+{% endfor %}
+
+{{ n.time }}
+<div id="add_comment_{{n.id}}"
+     onclick="$('#add_comment_form_{{n.id}}').show();">
+  <a href="#" onclick="return false();"> Adauga un comentariu </a>
+</div>
+<div class="comments" id="comments_{{n.id}}">
+</div>
+<div  class="add_comment_form" id="add_comment_form_{{n.id}}">
+<form method="" action="">
+  <input type="textarea" id="id_comment_text"/>
+</form>
+<a href="#" onclick="add_comment({{n.id}});">Salveaza</a>
+</div>
+<hr/>
+{% endfor %}

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/fingo/!svn/ver/131/trunk/static/templates/fb_app
+END
+app.html
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/fingo/!svn/ver/170/trunk/static/templates/fb_app/app.html
+END
+redirect.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/fingo/!svn/ver/135/trunk/static/templates/fb_app/redirect.html
+END
+base.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/fingo/!svn/ver/159/trunk/static/templates/fb_app/base.html
+END

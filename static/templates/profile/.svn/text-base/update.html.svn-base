@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+Fingo.ro - Mai da-ne detalii
+{% endblock %}
+
+
+{% block content %}
+<form method="POST" action="/profile/update" enctype="multipart/form-data">{% csrf_token %}
+  {{form.first_name.errors}}
+  {{form.first_name.label_tag}} {{form.first_name}}
+  {{form.last_name.errors}}
+  {{form.last_name.label_tag}} {{form.last_name}}
+  <br/>
+
+
+  {{form.gender.errors}}
+  {{form.gender.label_tag}} {{form.gender}}
+
+  {{form.bday.errors}}
+  {{form.bday.label_tag}} {{form.bday}}
+
+  {{form.city_curr.errors}}
+  {{form.city_curr.label_tag}} {{form.city_curr}}
+
+  {{form.city_home.errors}}
+  {{form.city_home.label_tag}} {{form.city_home}}
+
+
+  {{form.photo.errors}}
+  {{form.photo.label_tag}} {{form.photo}}
+  {% if profile and profile.photo %}
+  Poza curenta: <img src="{{profile.photo.thumbnail.url}}" width="30" alt="poza profil"/>
+  {% endif %}
+
+  <input type="submit" value="Inregistreaza-te" />
+</form>
+
+{% endblock %}

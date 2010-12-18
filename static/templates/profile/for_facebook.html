@@ -1,0 +1,16 @@
+<!-- specially crafted for facebook -->
+<html xmlns:og="http://opengraphprotocol.org/schema/"
+      xmlns:fb="http://www.facebook.com/2008/fbml">
+  <head>
+    <title>{{req_news.title}}</title>
+    <meta property="og:title" content="{{req_news.title}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="{% with req_news.images|first as first_image %}{{ first_image.image.thumbnail.url }}{% endwith %}"/>
+    <meta property="og:url" content="{{full_url_prefix}}{% url profile-index %}?n={{req_news.id}}" />
+    <meta property="og:description" content="{{req_news.text|truncatewords:20}}" />
+    <meta property="og:site_name" content="Fingo.ro - resursa ta de bârfe zilnice" />
+    <meta property="fb:app_id" content="{{fb_app_id}}" />
+  </head>
+  <body>
+  </body>
+</html>

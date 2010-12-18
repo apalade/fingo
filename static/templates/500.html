@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="left"></div>
+<div id="middle2">
+   <br/><br/>
+   La naiba, s-a stricat! Se pare că avem ceva probleme tehnice.
+   Echipa noastră de dezvoltare a fost anunțată și vom încerca să rezolvăm
+   problema cât mai repede. Iți mulțumim pentru răbdare!
+   <br/><br/>
+   Până atunci, dacă ai ceva sugestii, apasă pe butonul de feedback din partea dreaptă a paginii.
+   Poți continua să vezi mai multe <a href="{% url news-index %}">bârfe</a> sau
+   sa iți vezi <a href="{% url profile-index %}">profiul tău</a>.
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block js %}
+$(function() {
+
+$('#multi-image').MultiFile({
+  accept:'gif|jpg|png|svg', max:5, STRING: {
+    remove:'[şterge]',
+    selected:'Ai selectat: $file',
+    denied:'Vă rugăm upload-aţi numai imagini de tip jpg, png, gif sau svg!',
+    duplicate:'Fişierul "$file" există deja in listă!'
+  }
+});
+
+$('.images-placeholder').click(function() {
+$('#adauga-images').toggle();
+$('#adauga-video').hide();
+});
+
+$('.video-placeholder').click(function() {
+$('#adauga-video').toggle();
+$('#adauga-images').hide();
+});
+
+$('#id_video').click(function() {
+$(this).val('');
+});
+
+$('#add_news_form_submit').click(function() {
+  if ($('#id_video').val() == 'http://') {
+    $('#id_video').val('');
+  }
+  $('#add_news_form').submit();
+});
+
+});
+
+function publish_fb() {
+alert('publishing');
+dict = {method: 'stream.publish'};
+dict.message = $('#id_text').val();
+alert($('#id_video').val());
+FB.ui(
+{
+method: 'stream.publish',
+message: 'getting educated about Facebook Connect',
+attachment: {
+name: 'Connect',
+caption: 'The Facebook Connect JavaScript SDK',
+description: (
+'A small JavaScript library that allows you to harness ' +
+'the power of Facebook, bringing the user\'s identity, ' +
+'social graph and distribution power to your site.'
+),
+href: 'http://github.com/facebook/connect-js'
+},
+action_links: [
+{ text: 'Code', href: 'http://github.com/facebook/connect-js' }
+],
+user_message_prompt: 'Publicaţi această bârfă pe Facebook'
+},
+function(response) {
+if (response && response.post_id) {
+alert('Post was published.');
+} else {
+alert('Post was not published.');
+}
+});
+return false;
+}
+
+{% endblock %}
+
+{% block content %}
+<div id="left"></div>
+<div id="middle2">
+    <div id="div_add_news_form">
+    <div id="result_success"> Am adăugat vestea </div>
+  <div id="result_fail"> Vestea ta nu conţine nimic </div>
+  <form method="post" action="/news/add" enctype="multipart/form-data" id="add_news_form">
+    {% csrf_token %}
+    <div class="error">
+      {{form.anonymous.errors}}
+    </div>
+    <div class="error">
+      {{form.fb_wall.errors}}
+    </div>
+    <div class="error">
+      {{form.about_name.errors}}
+    </div>
+    <div class="error">
+      {{form.title.errors}}
+    </div>
+    <div class="error">
+      {{form.text.errors}}
+    </div>
+    <div class="error">
+      {{form.video.errors}}
+    </div>
+    <div class="adauga-barfa">
+      <label for="id_about_name">Despre:</label>{{form.about_name}}
+    </div>
+    <div class="adauga-barfa">
+        <label for="id_title">Titlu:</label>{{form.title}}
+      </div>
+      <div class="adauga-barfa">
+        <label for="id_text">Barfa:</label><textarea name="text" id="id_text"></textarea>
+        <!-- am inlocuit {{form.label.text}} si {{form.text}}, nu gaseam unde sunt sa le modific textul si numarul de rows -->
+      </div>
+      <div class="nav-adauga">
+        <span class="nav-adauga-adauga">&nbsp;</span> <span class="images-placeholder" onclick="$('#adauga_images').show();return false;"></span> <span class=
+        "video-placeholder"></span>
+        <span class="anonymous-placeholder">
+            {{form.anonymous.label_tag}}{{form.anonymous}}
+        </span>
+        <span class="wall-placeholder">
+            {{form.fb_wall.label_tag}}{{form.fb_wall}}
+        </span>
+      </div>
+      <div class="nav-adauga">
+        <span class="nav-adauga-adauga">&nbsp;</span>
+        <span id="adauga-video">
+            {{form.video}}
+        </span>
+        <span id="add_news_form_submit"><a href="#">adauga</a></span>
+      </div>
+      <div id="adauga-images">
+                <input type="file" name="images" id="multi-image"/>
+      </div>
+</form>
+    </div>
+<br class="clear" />
+</div>
+{% endblock %}

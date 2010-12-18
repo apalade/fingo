@@ -1,0 +1,277 @@
+
+{% extends "base.html" %}
+{% load prettyuser %}
+
+{% block title %}
+Pagina lui {{req_user|user_or_name}} - Fingo.ro
+{% endblock %}
+
+<<<<<<< .mine
+{% block js %}
+$(function() {
+$('.add_comment_form').hide();
+get_all_comments();
+get_news({filter: 32, about: {{req_user.id}} });
+});
+=======
+{% block js %}
+$(function() {
+$('.add_comment_form').hide();
+get_all_comments();
+>>>>>>> .r47
+
+<<<<<<< .mine
+get_more_news = (function() {
+  get_news_append({filter: 32, about: {{req_user.id}}, page: news_page += 1 });
+});
+=======
+get_news({filter: 32, about: {{req_user.id}} });
+});
+>>>>>>> .r47
+
+{% endblock %}
+
+<<<<<<< .mine
+{% block content %}
+<div id="left">
+  {% include 'news/add_inline_button.html' %}
+  <div class="profile-img">
+    <img src="{{req_user.get_profile.photo.url}}" alt="{{req_user|user_or_name}}" title="{{req_user|user_or_name}}"/>
+  </div>
+  <br class="clear" />
+  <div class="clear"></div>
+  {% if friends_count > 0 %}
+  <a href="{% url friends-index %}?p={{req_user.id}}" class="see-friends-heading">
+    {% if friends_count == 1 %} Doar un prieten {% else %} Vezi cei {{friends_count}} prieteni {%endif %}</a>
+  <div class="see-friends">
+  {% for friend_profile in friends_profiles %}
+    <a href="{% url profile-view friend_profile.user.username %}" class="img_profil" title="{{friend_profile.user|user_or_name}}"><img src="{{friend_profile.photo.thumbnail.url}}" alt="{{friend_profile.user|user_or_name}}"/></a>
+  {% endfor %}
+  </div>
+  {% endif %}
+    
+</div>
+<div id="middle2">
+  {% with req_user|user_or_first_name as add_inline_about_name %}
+  {% include 'news/add_inline.html' %}
+  {% endwith %}
+  <br class="clear" />
+  <div class="info_profil">
+    <h1 style="display:inline">{{req_user|only_name}}</h1>
+    {% if not is_my_friend and req_user != user %}
+    <div id="add_as_friend" style="display:inline">
+      <sup style="vertical-align:top">
+      <span class="cont_prieteni" title="Adaugă ca prieten"></span>
+      <a href="#" onclick="add_friend({{req_user.id}});">Adaugă ca prieten </a>
+      </sup>
+    </div>
+    {% endif %}
+    <br/><br/>
+    <h3>Informatii generale</h3>
+    {% if user.username == req_user.username %}
+    <div id="first_name_text" class="text-bio">{{req_user.first_name|default:"<i>Introdu prenume</i>"}}</div>
+    <a id ="first_name_modify" href="#" onclick="display_modify('first_name'); return false;">modifică</a>
+    <div id="first_name_input" style="display:none">{{form_profile.first_name}}</div>
+    <a id ="first_name_confirm" href="#" style="display:none" onclick="save_modify('first_name'); return false;">confirmă</a>
+=======
+{% block content %}
+<div id="left">
+  <div class="profile-img">
+    <img src="{{req_user.get_profile.photo.url}}" alt="{{req_user|user_or_name}}" title="{{req_user|user_or_name}}"/>
+  </div>
+  <br class="clear" />
+  <div class="clear"></div>
+  {% if friends_count > 0 %}
+  <a href="{% url friends-list %}?p={{req_user.id}}">
+    {% if friends_count == 1 %} Doar un prieten {% else %} Vezi cei {{friends_count}} prieteni {%endif %}</a>
+  {% for friend_profile in friends_profiles %}
+    <a href="{% url profile-view friend_profile.user.username %}" class="img_profil" title="{{friend_profile.user|user_or_name}}"><img src="{{friend_profile.photo.thumbnail.url}}" alt="{{friend_profile.user|user_or_name}}"/></a>
+  {% endfor %}
+  {% endif %}
+    
+</div>
+<div id="middle2">
+  <br class="clear" />
+  <br />
+  <div id="add_news_form_toggle"><a href="#" onclick="return false;"> Adaugă o bârfa despre {{req_user|user_or_first_name}}</a></div>
+  {% include 'news/add_inline.html' %}
+  <br class="clear" />
+  <div class="info_profil">
+    <h1>{{req_user|only_name}}</h1> 
+    <h3>({{req_user.username}})</h3>
+    {% if not is_my_friend and req_user != user %}
+    <div id="add_as_friend">
+      <img src="{{MEDIA_URL}}images/cont_prieteni.jpg" alt="poza" title="Adaugă ca prieten"/>
+      <a href="#" onclick="add_friend({{req_user.id}});">Adaugă ca prieten </a>
+    </div>
+    {% endif %}
+>>>>>>> .r47
+
+<<<<<<< .mine
+    <div id="last_name_text" class="text-bio">{{req_user.last_name|default:"<i>Intrdu nume</i>"}}</div>
+    <a id ="last_name_modify" href="#" onclick="display_modify('last_name'); return false;">modifică</a>
+    <div id="last_name_input" style="display:none">{{form_profile.last_name}}</div>
+    <a id ="last_name_confirm" href="#" style="display:none" onclick="save_modify('last_name'); return false;">confirmă</a>
+=======
+    <h3>Informatii generale</h3>
+    {% if user.username == req_user.username %}
+    <div id="first_name_text" class="text-bio">{{req_user.first_name|default:"<i>Introdu prenume</i>"}}</div>
+    <a id ="first_name_modify" href="#" onclick="display_modify('first_name'); return false;">modifică</a>
+    <div id="first_name_input" style="display:none">{{form_profile.first_name}}</div>
+    <a id ="first_name_confirm" href="#" style="display:none" onclick="save_modify('first_name'); return false;">confirmă</a>
+>>>>>>> .r47
+
+<<<<<<< .mine
+    <div id="gender_text" class="text-bio">
+      {% if 0 == req_user.get_profile.gender %}
+      Barbat
+      {% else %} {% if 1 == req_user.get_profile.gender %}
+      Femeie
+      {% else %}
+      <i>Alege sexul</i>
+      {% endif %}
+      {% endif %}
+    </div>
+    <a id ="gender_modify" href="#" onclick="display_modify('gender'); return false;">modifică</a>
+    <div id="gender_input" style="display:none">{{form_profile.gender}}</div>
+    <a id ="gender_confirm" href="#" style="display:none" onclick="save_modify('gender'); return false;">confirmă</a>
+=======
+    <div id="last_name_text" class="text-bio">{{req_user.last_name|default:"<i>Intrdu nume</i>"}}</div>
+    <a id ="last_name_modify" href="#" onclick="display_modify('last_name'); return false;">modifică</a>
+    <div id="last_name_input" style="display:none">{{form_profile.last_name}}</div>
+    <a id ="last_name_confirm" href="#" style="display:none" onclick="save_modify('last_name'); return false;">confirmă</a>
+>>>>>>> .r47
+
+<<<<<<< .mine
+    <div id="bday_text" class="text-bio">{{req_user.get_profile.bday|default:"<i>Ziua de naștere</i>"}}</div>
+    <a id ="bday_modify" href="#" onclick="display_modify('bday'); return false;">modifică</a>
+    <div id="bday_input" style="display:none">{{form_profile.bday}}</div>
+    <a id ="bday_confirm" href="#" style="display:none" onclick="save_modify('bday'); return false;">confirmă</a>
+=======
+    <div id="gender_text" class="text-bio">
+      {% if 0 == req_user.get_profile.gender %}
+      Barbat
+      {% else %} {% if 1 == req_user.get_profile.gender %}
+      Femeie
+      {% else %}
+      <i>Alege sexul</i>
+      {% endif %}
+      {% endif %}
+    </div>
+    <a id ="gender_modify" href="#" onclick="display_modify('gender'); return false;">modifică</a>
+    <div id="gender_input" style="display:none">{{form_profile.gender}}</div>
+    <a id ="gender_confirm" href="#" style="display:none" onclick="save_modify('gender'); return false;">confirmă</a>
+>>>>>>> .r47
+
+<<<<<<< .mine
+    <div id="city_curr_text" class="text-bio">{{req_user.get_profile.city_curr|default:"<i>Orașul curent</i>"}}</div>
+    <a id ="city_curr_modify" href="#" onclick="display_modify('city_curr'); return false;">modifică</a>
+    <div id="city_curr_input" style="display:none">{{form_profile.city_curr}}</div>
+    <a id ="city_curr_confirm" href="#" style="display:none" onclick="save_modify('city_curr'); return false;">confirmă</a>
+=======
+    <div id="bday_text" class="text-bio">{{req_user.get_profile.bday|default:"<i>Ziua de naștere</i>"}}</div>
+    <a id ="bday_modify" href="#" onclick="display_modify('bday'); return false;">modifică</a>
+    <div id="bday_input" style="display:none">{{form_profile.bday}}</div>
+    <a id ="bday_confirm" href="#" style="display:none" onclick="save_modify('bday'); return false;">confirmă</a>
+>>>>>>> .r47
+
+<<<<<<< .mine
+    <div id="city_home_text" class="text-bio">{{req_user.get_profile.city_home|default:"<i>Orașul natal</i>"}}</div>
+    <a id ="city_home_modify" href="#" onclick="display_modify('city_home'); return false;">modifică</a>
+    <div id="city_home_input" style="display:none">{{form_profile.city_home}}</div>
+    <a id ="city_home_confirm" href="#" style="display:none" onclick="save_modify('city_home'); return false;">confirmă</a>
+=======
+    <div id="city_curr_text" class="text-bio">{{req_user.get_profile.city_curr|default:"<i>Orașul curent</i>"}}</div>
+    <a id ="city_curr_modify" href="#" onclick="display_modify('city_curr'); return false;">modifică</a>
+    <div id="city_curr_input" style="display:none">{{form_profile.city_curr}}</div>
+    <a id ="city_curr_confirm" href="#" style="display:none" onclick="save_modify('city_curr'); return false;">confirmă</a>
+>>>>>>> .r47
+
+<<<<<<< .mine
+=======
+    <div id="city_home_text" class="text-bio">{{req_user.get_profile.city_home|default:"<i>Orașul natal</i>"}}</div>
+    <a id ="city_home_modify" href="#" onclick="display_modify('city_home'); return false;">modifică</a>
+    <div id="city_home_input" style="display:none">{{form_profile.city_home}}</div>
+    <a id ="city_home_confirm" href="#" style="display:none" onclick="save_modify('city_home'); return false;">confirmă</a>
+>>>>>>> .r47
+
+<<<<<<< .mine
+    {% else %}
+=======
+>>>>>>> .r47
+
+<<<<<<< .mine
+    <div id="first_name_text" class="text-bio">Prenume: <strong>{{req_user.first_name|default:""}}</strong></div>
+    <div id="last_name_text" class="text-bio">Nume: <strong>{{req_user.last_name|default:""}}</strong></div>
+    <div id="gender_text" class="text-bio">
+      Sex: <strong>
+        {% if 0 == req_user.get_profile.gender %}
+        Bărbat
+        {% else %} {% if 1 == req_user.get_profile.gender %}
+        Femeie
+        {% else %}
+        {% endif %}
+        {% endif %}
+      </strong>
+    </div>
+    {% if req_user.get_profile.bday %}
+    <div id="bday_text" class="text-bio"> Data nasterii: <strong>{{req_user.get_profile.bday|default:""}}</strong></div>
+    {% endif %}
+    {% if req_user.get_profile.city_curr %}
+    <div id="city_curr_text" class="text-bio">Orasul curent: <strong>{{req_user.get_profile.city_curr|default:""}}</strong> (<strong>{{req_user.get_profile.city_curr.county|default:""}}</strong>)</div>
+    {% endif %}
+    {% if req_user.get_profile.city_home %}
+    <div id="city_home_text" class="text-bio">Orasul natal: <strong>{{req_user.get_profile.city_home|default:""}}</strong> (<strong>{{req_user.get_profile.city_home.county|default:""}}</strong>)</div>
+    {% endif %}
+=======
+    {% else %}
+>>>>>>> .r47
+
+<<<<<<< .mine
+=======
+    <div id="first_name_text" class="text-bio">Prenume: <strong>{{req_user.first_name|default:""}}</strong></div>
+    <div id="last_name_text" class="text-bio">Nume: <strong>{{req_user.last_name|default:""}}</strong></div>
+    <div id="gender_text" class="text-bio">
+      Sex: <strong>
+        {% if 0 == req_user.get_profile.gender %}
+        Bărbat
+        {% else %} {% if 1 == req_user.get_profile.gender %}
+        Femeie
+        {% else %}
+        {% endif %}
+        {% endif %}
+      </strong>
+    </div>
+    {% if req_user.get_profile.bday %}
+    <div id="bday_text" class="text-bio"> Data nasterii: <strong>{{req_user.get_profile.bday|default:""}}</strong></div>
+    {% endif %}
+    {% if req_user.get_profile.city_curr %}
+    <div id="city_curr_text" class="text-bio">Orasul curent: <strong>{{req_user.get_profile.city_curr|default:""}}</strong> (<strong>{{req_user.get_profile.city_curr.county|default:""}}</strong>)</div>
+    {% endif %}
+    {% if req_user.get_profile.city_home %}
+    <div id="city_home_text" class="text-bio">Orasul natal: <strong>{{req_user.get_profile.city_home|default:""}}</strong> (<strong>{{req_user.get_profile.city_home.county|default:""}}</strong>)</div>
+    {% endif %}
+>>>>>>> .r47
+
+<<<<<<< .mine
+    {% endif %}
+=======
+>>>>>>> .r47
+
+<<<<<<< .mine
+  </div>
+  <br/>
+  <h3>Barfe despre {{req_user|user_or_first_name}}</h3>
+  <div id="news_top">
+  </div>
+</div>
+=======
+    {% endif %}
+
+>>>>>>> .r47
+  </div>
+  <br/>
+  <div id="news_top">
+  </div>
+</div>
+{% endblock %}

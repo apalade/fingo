@@ -1,0 +1,289 @@
+{% extends 'fb_app/base.html' %}
+
+{% block js %}
+
+var friends_limit = 10;
+var friends_offset = 0;
+var friends_total = 0;
+var msg_limit = 10;
+
+var friends = [];
+var curr_friend = {};
+var last_friend_id = null;
+var msgs = {0: [], 1: []}     // Male, female
+var curr_msg = {};
+
+var response_from_publish = null;
+
+function _rand_number(max) {
+  return Math.floor(Math.random() * max);
+}
+
+function _new_curr_profile(update_msg) {
+ _reset_input_fields();
+ $('#profile_image').attr('src', '{{MEDIA_URL}}images/loading.gif');
+ if (friends.length < 1) {
+   friends_offset = _rand_number(friends_total);
+   _fetch_more_profiles(update_msg);
+ } else {
+   _update_curr_profile(update_msg);
+ }
+}
+
+function _new_curr_msg() {
+  _reset_input_fields();
+  if (msgs[0].length < 1 || msgs[1].length < 1) {
+    _fetch_more_msgs();
+  } else {
+    _update_curr_msg();
+  }
+}
+
+
+function _update_curr_profile(update_msg) {
+ curr_friend.index = _rand_number(friends.length);
+ curr_friend.id = friends[curr_friend.index].id;
+ curr_friend.name = friends[curr_friend.index].name;
+ curr_friend.gender = friends[curr_friend.index].gender;
+ friends.splice(curr_friend.index, 1);
+
+ if (update_msg) {
+    _new_curr_msg();
+ } else {
+    _refresh();
+ }
+}
+
+function _update_curr_msg() {
+ curr_msg.index = _rand_number(msgs[curr_friend.gender].length);
+ curr_msg.id = msgs[curr_friend.gender][curr_msg.index].id;
+ curr_msg.text = msgs[curr_friend.gender][curr_msg.index].text;
+ curr_msg.title = msgs[curr_friend.gender][curr_msg.index].title;
+ msgs[curr_friend.gender].splice(curr_msg.index, 1);
+
+ _refresh();
+}
+
+function _fetch_more_profiles(update_msg) {
+ FB.api("me/friends", {fields: "id,name,gender", limit: friends_limit, offset: friends_offset, access_token: '{{oauth_token}}'}, function(response) {
+    friends = friends.concat(response.data);
+    for (var i = 0; i < friends.length; ++i) {
+      if (friends[i].gender == 'female' || friends[i].gender == 'feminin') {
+        friends[i].gender = 1;
+      } else {
+        friends[i].gender = 0;
+      }
+    }
+    _update_curr_profile(update_msg);
+  });
+}
+
+function _fetch_more_msgs() {
+ $.get('/app/msg', {limit: msg_limit}, function(response) {
+    data = eval(response);
+    msgs[0] = msgs[0].concat(data.male);
+    msgs[1] = msgs[1].concat(data.female);
+    _update_curr_msg();
+ });
+}
+
+function _publish_on_facebook(news_title, news_text, news_id) {
+  link = '{{full_url_prefix}}';
+  if (news_id != null) {
+    link += '{% url profile-index %}?n=' + news_id;
+  }
+
+  FB.api(
+    {method: 'stream.publish',
+    message: '',
+    attachment: {
+      name: news_title,
+      href: '{{app_url}}',
+      //caption: 'vino pe fingo.ro să vezi bârfe de la toată lumea',
+      description: news_text,
+      media: [{
+        type: 'image',
+        src: '{{MEDIA_URL}}images/app/sigla75x75.jpg',
+        href: '{{app_url}}'
+      }]
+    },
+    action_links: [{text: 'Vezi bârfa pe Fingo.ro', href: link}],
+    target_id: curr_friend.id,
+    access_token: '{{oauth_token}}'
+    }, function(response) {
+      // Do something with facebook response?
+  });
+}
+
+function _refresh() {
+  if (last_friend_id != curr_friend.id) {
+    $('#profile_image').attr('alt', 'Se încarcă');
+    $('#profile_image').attr('title', curr_friend.name);
+    $('#profile_image').attr('src', 'https://graph.facebook.com/' + curr_friend.id + '/picture?type=large');
+    last_friend_id = curr_friend.id;
+  }
+
+  $('#text').text(curr_msg.text.replace(/%1/g, curr_friend.name));
+  $('#title').text(curr_msg.title.replace(/%1/g, curr_friend.name));
+}
+
+function _init_friends_offset(callback) {
+  // Randomly init the offset for friends
+  // TODO: maybe facebook will modify the API to provide the nubmer of friends...
+  FB.api("me/friends", {fields: "id", access_token: '{{oauth_token}}'}, function(response) {
+    friends_total = response.data.length
+    callback();
+  });
+}
+
+function _reset_input_fields() {
+ $('#anonymous').removeAttr('checked')
+ $('#title').replaceWith('<h2 id="title"></h2>');
+ $('#text').replaceWith('<div id="text"></div>');
+
+ $('#title').hover(function() {
+    _hover_in_event($(this));
+  }, function() {
+    _hover_out_event($(this));
+  });
+  $('#title').one('click', function() {
+    $(this).unbind();
+    $(this).removeClass("text_over");
+    $(this).replaceWith('<input type="text" id="title" name="title" value="' + $.trim($(this).text()) + '" />');
+  });
+
+  $('#text').hover(function() {
+    _hover_in_event($(this));
+
+  }, function() {
+    _hover_out_event($(this));
+  });
+
+  $('#text').one('click', function() {
+    $(this).unbind();
+    $(this).removeClass("text_over");
+    $(this).replaceWith('<textarea id="text" name="text"> ' + $.trim($(this).text()) + '</textarea>');
+
+  });
+}
+
+function _hover_in_event(element) {
+  element.addClass("text_over");
+}
+
+function _hover_out_event(element) {
+  element.removeClass("text_over");
+}
+
+function _click_event(element) {
+   // Publish on fingo.ro and get the news id
+  response_from_publish = null;
+
+  // Building parameters
+  params = {}
+  if ($('#title').val() == '') {
+    params.title = $('#title').text();
+  } else {
+    params.title = $('#title').val();
+  }
+  if ($('#text').val() == '') {
+    params.text = $('#text').text();
+  } else {
+    params.text = $('#text').val();
+  }
+  params.about = curr_friend.name;
+  params.fb_id = curr_friend.id;
+  params.msg_id = curr_msg.id;
+  if (true == $('#anonymous').attr('checked')) {
+    params.anonymous = 'on';
+  }
+
+  // Calling server
+  $.get('{% url fb_app-publish %}', params, function(response) {
+      if ('ERR' == response) {
+        $('#response').html('<div class="error">A apărut o eroare. Te rugăm reîncearcă.</div>');
+      } else {
+        response_from_publish = response;
+        $('#response').html('<div class="ok">Am publicat bârfa despre <b>' + curr_friend.name + '</b></div>');
+      }
+
+      if (null == params.anonymous) {
+        // Publish it baby
+        _publish_on_facebook(params.title, params.text, response_from_publish);
+      }
+  });
+}
+
+$(function() {
+  // Populate fields, first time we also need to update the message
+  _init_friends_offset(function() {
+    _new_curr_profile(true);
+  });
+
+  $('#submit_button').click(function() {
+    if (true != $.data(this, 'clicked')) {
+      $.data(this, 'clicked', true);
+      _click_event();
+    }
+
+    setTimeout(function() {
+      $.data($('#submit_button')[0], 'clicked', false);
+      $('.ok').fadeOut();
+      $('.error').fadeOut();
+    }, 1500);
+  });
+
+});
+
+{% endblock %}
+
+{% block content %}
+
+<div id="mainApp">
+    <div id="headerApp">
+      <a href="http://fingo.ro"><div id="titleApp">Bârfe de-a gata pentru prietenii tăi!</div></a>
+        <div id="topRightWrapper">
+            <div id="fb">
+              <fb:like-box href="http://www.facebook.com/Fingo.ro" connections="0" stream="false" header="false"></fb:like-box>
+            </div>
+            <div id="moreActions">
+                <div><a href="#" onclick="_new_curr_profile(true); return false;">Altă bârfă/persoană</a></div>
+                <div><a href="#" onclick="_new_curr_msg(); return false;">Altă bârfă</a></div>
+            </div>
+        </div>
+    </div>
+    <div id="contentApp">
+        <div id="mainContent">
+            <div id="articleApp">
+              <form method="GET" action="{% url fb_app-publish %}" id="submit_form">
+                <h2 id="title"></h2>
+                <p><div id="text"></div></p>
+
+                <div class="anonim">
+                  <input type="checkbox" name="anonymous" id="anonymous"/>
+                  <label for="anonymous">
+                    <b>Anonim</b>&nbsp;
+                    ( bârfa apare doar pe <a href="http://fingo.ro">Fingo.ro</a> fără să-ţi fie dezvăluită identitatea)</label>
+                </div>
+
+                <div id="response"></div>
+                <div class="publica" id="submit_button" href="#">
+                  <img src="{{MEDIA_URL}}images/app/publica.jpg"/>
+                </div>
+              </form>
+              <p class="anonim-hint">
+                <img src="{{MEDIA_URL}}images/app/idea.png" alt="Sugestie" title="Sugestie"/>
+                Apasă pe text, dacă vrei să personalizezi mesajul
+                </p>
+            </div>
+        </div>
+        <div id="picWrapper">
+            <img id="profile_image" src="" alt="Se încarcă..."/>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,53 @@
+{% load prettyuser %}
+{% load prettytime %}
+
+{% if has_more %}
+ultimele comentarii despre aceasta barfa... <br/>
+{% endif %}
+
+{% for c in comments %}
+<<<<<<< .mine
+<div class="comm">
+  <div class="comm_poza">
+    <a href="{% url profile-view c.user.username %}">
+      <img src="{{c.user.get_profile.photo.url}}" title="{{c.user|user_or_name}} poza"/>
+    </a>
+  </div>
+  <div class="comm_text">
+    <div class="dialog-open"></div>
+    <div class="comm_username">
+    <a  href="{% url profile-view c.user.username %}">{{c.user|user_or_name}}</a>
+    <p class="info">{{c.time|default_time}}</p>
+    </div>
+      
+    <p class="text"> 
+      {{c.text|linebreaksbr}}
+    </p>
+  </div>
+</div>
+
+=======
+<div class="comm">
+  <div class="comm_poza">
+    <a href="{% url profile-view c.user.username %}">
+      <img src="{{c.user.get_profile.photo.url}}" title="{{c.user|user_or_name}} poza"/>
+    </a>
+  </div>
+  <div class="comm_text">
+    <div class="dialog-open"></div>
+    <a class="comm_username" href="{% url profile-view c.user.username %}">{{c.user|user_or_name}}</a>
+    <p class="text"> 
+      {{c.text|linebreaksbr}}
+    </p>
+    <p class="info">
+      {{c.time|default_time}}
+    </p>
+  </div>
+</div>
+
+>>>>>>> .r29
+{% endfor %}
+<div class="clear"></div>
+{% if has_more %}
+<a href="#" onclick="get_comments({{news_id}}, true); return false;" id="comments_show_all">Arata-mi-le pe toate</a>
+{% endif %}

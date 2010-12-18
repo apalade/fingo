@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load prettyuser %}
+
+{% block title %}
+Fingo.ro - Pagina ta
+{% endblock %}
+
+{% block js %}
+$(function() {
+get_news({'filter': 32});
+$('.gallery').fancybox();
+});
+{% endblock %}
+
+{% block content %}
+<div class="continut">
+  <div id="left">
+
+    <a href="{% url news-add %}"><img src="{{MEDIA_URL}}images/scrie_barfe.jpg" alt="Scrie barfe" title="Scrie barfe" /></a><br/><br/>
+    {% if not profile.city_curr.id or not profile.city_home.id %}
+    <a href="{% url profile-update %}">Completeaza profilul ca sa obtii barfe relevante </a> <br/><br/>
+    {% endif %}
+
+    {% if notif.friend_req %}
+    Cineva te cunoaste pe Fingo si nu esti conectat cu el. <a href="/friends">Vezi</a> cine. <br/><br/>
+    {% endif %}
+    <a href="{% url profile-logout %}">Iesi din sistem</a><br/><br/>
+
+
+    <h3>Alege barfele</h3>
+    <br />
+    <a href="#" onclick="get_news({'filter': 0});" class="a_barfa"><img src="{{MEDIA_URL}}images/barfe_toate.jpg" alt="poza" title="Toate barfele" align="left"> Toate barfele</a>
+    <a href="#" onclick="get_news({'filter': 1});"class="a_barfa"><img src="{{MEDIA_URL}}images/barfe_prieteni.jpg" alt="poza" title="Barfe prieteni" align="left"> De la prieteni</a>
+    {% if profile.city_curr.id %}
+    <a href="#" onclick="get_news({'filter': 2, 'cityId': {{profile.city_curr.id}} });" class="a_barfa">
+      <img src="{{MEDIA_URL}}images/barfe_oras.jpg" alt="poza" title="Barfe orasul curent" align="left" />
+      Barfe din orasul {{profile.city_curr.name}}
+    </a>
+    {% endif %}
+    {% if profile.city_curr.county.id  and profile.city_curr.name != 'Bucuresti' %}
+    <a href="#" onclick="get_news({'filter': 4, 'countyId': {{profile.city_curr.county.id}} });" class="a_barfa">
+      <img src="{{MEDIA_URL}}images/barfe_judet.jpg" alt="poza" title="Barfe judetul curent" align="left" />
+      Barfe din judetul {{profile.city_curr.county.name}}
+    </a>
+    {% endif %}
+    {% if profile.city_home.id %}
+    <a href="#" onclick="get_news({'filter': 2, 'cityId': {{profile.city_home.id}} });" class="a_barfa">
+      <img src="{{MEDIA_URL}}images/barfe_oras.jpg" alt="poza" title="Barfe orasul natal" align="left" />
+      Barfe din orasul {{profile.city_home.name}}
+    </a>
+    {% endif %}
+
+    {% if profile.city_home.county.id and profile.city_home.name != 'Bucuresti' and profile.city_home.county.id != profile.city_curr.county.id %}
+    <a href="#" onclick="get_news({'filter': 4, 'countyId': {{profile.city_home.county.id}} });" class="a_barfa">
+      <img src="{{MEDIA_URL}}images/barfe_judet.jpg" alt="poza" title="Barfe judetul natal" align="left" />
+      Barfe din judetul {{profile.city_home.county.name}}
+    </a>
+    {% endif %}
+
+<<<<<<< .mine
+    <a href="#" onclick="get_news({'filter': 8});" class="a_barfa">
+      <img src="{{MEDIA_URL}}images/barfe_poze.jpg" alt="poza" title="Barfe cu poze" align="left">
+      Barfe cu poze
+    </a>
+    <a href="#" onclick="get_news({'filter': 16});" class="a_barfa">
+      <img src="{{MEDIA_URL}}images/barfe_video.jpg" alt="poza" title="Barfe cu video" align="left">
+      Barfe cu video
+    </a>
+    <a href="#" onclick="get_news({'filter': 32});" class="a_barfa">
+      Barfe despre mine
+    </a>
+  </div>
+  <div id="middle{% if user.is_authenticated %}2{% else %}1{% endif %}">
+    {% comment %} Special news requested by URL {% endcomment %}
+
+    {% if req_news %}
+    Barfa ceruta special:
+    {% with req_news as n %}
+    {% include 'news/single_news.html' %}
+    {% endwith %}
+    <br/><hr/><br/>
+    {% endif %}
+
+    <div id="news_top">
+    </div>
+
+    <a href="#" onclick="get_news_append({'filter': news_filter, 'page': news_page + 1, 'perpage': news_perpage});">Mai multe</a>
+  </div>
+=======
+    <a href="#" onclick="get_news({'filter': 8});" class="a_barfa">
+      <img src="{{MEDIA_URL}}images/barfe_poze.jpg" alt="poza" title="Barfe cu poze" align="left">
+      Barfe cu poze
+    </a>
+    <a href="#" onclick="get_news({'filter': 16});" class="a_barfa">
+      <img src="{{MEDIA_URL}}images/barfe_video.jpg" alt="poza" title="Barfe cu video" align="left">
+      Barfe cu video
+    </a>
+    <a href="#" onclick="get_news({'filter': 32});" class="a_barfa">
+      Barfe despre mine
+    </a>
+  </div>
+  <div id="middle">
+    {% comment %} Special news requested by URL {% endcomment %}
+
+    {% if req_news %}
+    Barfa ceruta special:
+    {% with req_news as n %}
+    {% include 'news/single_news.html' %}
+    {% endwith %}
+    <br/><hr/><br/>
+    {% endif %}
+
+    <div id="news_top">
+    </div>
+
+    <a href="#" onclick="get_news_append({'filter': news_filter, 'page': news_page + 1, 'perpage': news_perpage});">Mai multe</a>
+  </div>
+>>>>>>> .r29
+</div>
+  {% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% if 0 != step %}
+{% block js %}
+$(function() {
+  // Initial
+  $("form input[type='checkbox']").attr('checked', true);
+
+  // On click
+  $('#id_all').click(function() {
+    //alert($('#id_all').is(':checked'));
+    $("form input[type='checkbox']").attr('checked', $('#id_all').is(':checked'));
+  });
+});
+{% endblock %}
+{% endif %}
+{% block content %}
+<div id="left"></div>
+<div id="middle2">
+{% if 0 == step %}
+<form method="POST" action="/friends/invite">{% csrf_token %}
+  {% if wrong %}
+  <div class="error">Combinatie gresit de user/parola. Reincearca.</div>
+  {% endif %}
+  <div class="adauga-barfa">{{form.username.label_tag}} {{form.username}}{{form.username.errors}}</div>
+  <div class="adauga-barfa">{{form.password.label_tag}} {{form.password}}{{form.password.errors}}</div>
+  <div class="adauga-barfa"><label>&nbsp;</label><input type="submit" value="Da-mi sa aleg prietenii" /></div>
+</form>
+<br/>
+<div>
+Dormi linistit. Adresa ta de e-mail si parola pe care ne-o dai aici, nu este stocata
+nicaieri pe serverele noastre. Nu o folosim decat sa-ti prezentam o lista cu contactele
+din care tu sa poti alege.
+</div>
+{% else %}
+<form id="send-invite-mail-contacts" method="POST" action="/friends/invite?send">{% csrf_token %}
+  {{form.people.errors}}
+  {{form.people.label_tag}}
+  <br/>
+  <input type="checkbox" id="id_all"/> toti
+  {{form.people}}
+  <label>&nbsp;</label><input type="submit" value="Trimite invitatiile" /><br/>
+</form>
+<br/>
+<p>
+Promitem sa nu facem spam.
+Nu pastram sub nicio forma e-mail-urile pe care ni le dai in baza de date. O data
+ce au fost trimise invitatiile, adresele de e-mail sunt sterse de la noi.
+</p>
+{% endif %}
+</div>
+{% endblock %}

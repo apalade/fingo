@@ -1,0 +1,61 @@
+<div id="header">
+  <a href="{% url news-index %}"><div id="logo"></div></a>
+  <div id="banner">
+    {% if user.is_authenticated %}
+
+    <a {% if curr_page == 'news-index' %}class="selected"{% endif %}
+      href="{% url news-index %}" id="meniu_prima" title="Prima pagină">&nbsp;</a>
+
+    <a {% if curr_page == 'profile-index' %}class="selected"{% endif %}
+      href="{% url profile-index %}" id="meniu_barfe" title="Bârfe">&nbsp;</a>
+
+    <a {% if curr_page == 'profile-view' %}class="selected"{% endif %}
+      href="{% url profile-view user.username %}" id="meniu_profil" title="Profil">&nbsp;</a>
+
+
+    <a {% if curr_page == 'friends-index' %}class="selected"{% endif %}
+      href="{% url friends-index %}" id="meniu_prieteni" title="Prieteni">&nbsp;</a>
+
+    <div id="meniu2">
+      <div>
+        <!-- <a class="cont_mesaje" href="#" title="Mesajele tale" /></a> -->
+        {% if notif.friend_req %}
+        <a class="cont_prieteni" href="{% url friends-index %}" title="Solicitări prietenie"></a>
+        {% endif %}
+        {% if notif.new_gossip_me %}
+        <a class="cont_barfe" href="{% url profile-index %}" title="Bârfe noi despre tine"></a>
+        {% endif %}
+        <a class="logout" href="{% url profile-logout %}" title="Ieșire"></a>
+      </div>
+      <br/>
+      <!--
+      <form action="?" method="get">
+        <input type="text" name="q" value="" class="input" />
+        <input type="Submit" value="Cauta" class="submit" />
+      </form>-->
+      <br/>
+      <a href="{% url friends-invite %}" style="font-size:16px">Vrei mai multe bârfe?</a>
+
+    </div>
+    {% else %}
+    <p align="center">
+      <a href="{% url profile-login %}">
+        <br/>
+        <font style="font-size: 16pt;" face="Georgia">
+          <b>Bârfa</b> este ceea ce nimeni nu pretinde că <b>iubeşte</b>, <br/>
+          dar place <b>tuturor</b>.
+        </font>
+      </a>
+    </p>
+   
+    {% endif %}
+  </div>
+  <div id="scroll">
+    <ul id="scroller">
+      {% for news in news_scroll %}
+      <li><span class="stea" title="Stea barfa" ></span></li>
+      <li>{{news|safe}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div> 

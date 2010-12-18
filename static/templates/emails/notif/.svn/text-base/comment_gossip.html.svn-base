@@ -1,0 +1,12 @@
+Salut,
+<br/><br/>
+<a href="http://fingo.ro{% url profile-view username %}">{{name}}</a>
+a scris un nou comentariu la una din bârfele la care ai comentat și tu.
+Apasă <a href="http://fingo.ro{% url profile-index %}/?n={{news_id}}">aici</a>
+să vezi despre ce e vorba.
+
+{% include 'emails/notif/base.html' %}
+
+
+
+

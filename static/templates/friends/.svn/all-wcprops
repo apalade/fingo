@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/fingo/!svn/ver/45/trunk/static/templates/friends
+END
+invite.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/fingo/!svn/ver/131/trunk/static/templates/friends/invite.html
+END
+display.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/fingo/!svn/ver/109/trunk/static/templates/friends/display.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/fingo/!svn/ver/111/trunk/static/templates/friends/index.html
+END
+list.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/fingo/!svn/ver/65/trunk/static/templates/friends/list.html
+END

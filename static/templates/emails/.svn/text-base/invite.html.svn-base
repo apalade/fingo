@@ -1,0 +1,7 @@
+Salut :)
+
+<a href="http://fingo.ro{% url profile-view username %}">{{name}} </a>
+știe câteva bârfe calde. Vrei să le afli și tu? Hai pe
+<a href="http://fingo.ro">Fingo.ro</a>.
+
+{% include 'emails/notif/base.html' %}

@@ -1,0 +1,127 @@
+    html { word-wrap: break-word; }
+body{
+    font-family: Georgia;
+    word-wrap: break-word;
+}
+#mainApp{
+    width: 750px;
+    overflow: hidden;
+}
+#headerApp{
+    width: 726px;
+    height: 136px;
+    background: transparent url(../images/app/fingoApp.jpg) no-repeat top left;
+    padding: 12px;
+}
+#titleApp{
+    width: 326px;
+    font-size: 32px;
+    color: #3c599b;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 200px;
+    float: left;
+}
+#topRightWrapper{
+    float: left;
+    width: 168px;
+    padding: 0 16px;
+    padding-bottom: 0;
+}
+#fb{
+    margin: 0 0 20px;
+    height: 50px;
+    width: 168px;
+    /*background: transparent url(../images/app/fb.jpg) no-repeat center center;*/
+}
+#moreActions{
+    margin-top:40px;
+    width: 168px;
+}
+#moreActions div{
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    clear: both;
+}
+#contentApp{
+    width: 750px;
+    overflow: hidden;
+}
+#mainContent{
+    margin-left: 12px;
+    padding: 0 12px;
+    float: left;
+    width: 490px;
+}
+#picWrapper{
+    padding: 0 12px;
+    width: 200px;
+    text-align: center;
+    float: left;
+}
+#articleApp h2{
+    margin: 0;
+    padding: 0 36px;
+    font-weight: bold;
+    color: #000;
+    font-size: 18px;
+    text-align: center;
+}
+.publica{
+margin: 15px 0;
+text-align: center;
+}
+.publica input{
+    margin: 0 auto;
+    padding: 0;
+    border: medium none;
+    height: 36px;
+    width: 122px;
+}
+.publica input:hover{
+    cursor: pointer;
+}
+.anonim input, .anonim label{
+    font-size: 12px;
+}
+.text_over {
+  background-color: #b0c4de
+}
+a{
+    color: #072e57;
+    text-decoration: none;
+}
+#text{
+    text-align: justify;
+}
+#submit_button img:hover{
+    cursor: pointer;
+}
+#articleApp input#title {
+    width: 490px;
+    height: 20px;
+}
+#articleApp textarea{
+    width: 490px;
+    height: 100px;
+}
+.anonim-hint img{
+    vertical-align: middle;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  text-align: center;
+}
+
+.ok {
+  color: green;
+  font-size: 12px;
+  text-align: center;
+}
+
+.response {
+  margin: 16px 0px;
+}

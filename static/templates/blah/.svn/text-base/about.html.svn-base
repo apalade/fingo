@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Fingo.ro - Despre noi
+{% endblock %}
+
+
+{% block content %}
+<div id="left">
+</div>
+<div id="middle2">
+  <br/>
+  <br class="clear" />
+  <b>Fingo</b> a pornit dintr-o discuție cu prietenii.
+  Ajunși la facultate ne-am dat seama că este greu sa mai ținem pasul
+  cu cele mai noi bârfe din orașul nostru natal.<br/><br/>
+  Prin Fingo vă invităm să scrieti despre evenimentele importante din jurul vostru,
+  despre persoanele pe care le admirați sau despre cele care vă deranjează,
+  vă invităm să citiți și să luati parte la ceea ce va deveni cu ajutorul vostru:
+  Cea mai intrigantă rețea socială din România!
+</div>
+{% endblock %}

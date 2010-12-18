@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load prettyuser %}
+
+{% if 0 != step %}
+{% block js %}
+$(function() {
+// Initial
+$("form input[type='checkbox']").attr('checked', true);
+
+// On click
+$('#id_all').click(function() {
+//alert($('#id_all').is(':checked'));
+$("form input[type='checkbox']").attr('checked', $('#id_all').is(':checked'));
+});
+});
+{% endblock %}
+{% endif %}
+{% block content %}
+<div id="left"></div>
+<div id="middle2">
+  {% if 0 == step %}
+  <h1> Invită-ți prietenii </h1>
+  <h4>Invită-i folosind contul tău ... </h4>
+  Dormi liniștit. Adresa ta de e-mail și parola pe care ne-o dai aici, nu este stocată
+  nicăieri pe serverele noastre. Nu o folosim decât să-ți
+  prezentăm o listă cu contactele din care tu să poți alege.
+  <h4> ... de e-mail </h4>
+  <form method="POST" action="/friends/invite">{% csrf_token %}
+    {% if wrong %}
+    <div class="error">Combinație gresită de e-mail/parolă. Reîncearcă.</div>
+    {% endif %}
+    <div class="invite-friends-form">{{form.username.label_tag}} {{form.username}}{{form.username.errors}}</div>
+    <div class="invite-friends-form">{{form.password.label_tag}} {{form.password}}{{form.password.errors}}</div>
+    <div class="invite-friends-form"><label>&nbsp;</label><input type="submit" value="Dă-mi să aleg prietenii" /></div>
+  </form>
+  <h4> ... de facebook </h4>
+    <fb:serverFbml>
+      <script type="text/fbml">
+          <fb:fbml>
+          <fb:request-form action="{{full_url_prefix}}{% url profile-index %}/" method="GET"
+        invite="true"
+        type="Fingo.ro"
+        content="{{user|user_or_first_name}} stie câteva bârfe calde. Vrei să le afli și tu?
+          <fb:req-choice url='{{full_url_prefix}}/' label='Hai pe Fingo.ro' />
+          ">
+
+
+          <fb:multi-friend-selector
+        showborder="false"
+        actiontext="Invită-ți prietenii să folosească Fingo.ro"
+        email_invite="true"
+        cols="5"
+        rows="3" />
+          </fb:request-form>
+          </fb:fbml>
+      </script>
+    </fb:serverFbml>
+</div>
+{% else %}
+<form id="send-invite-mail-contacts" method="POST" action="/friends/invite?send">{% csrf_token %}
+  {{form.people.errors}}
+  {{form.people.label_tag}}
+  <br/>
+  <input type="checkbox" id="id_all"/> toți
+  {{form.people}}
+  <label>&nbsp;</label><input type="submit" value="Trimite invitațiile" /><br/>
+</form>
+<br/>
+<p>
+  Promitem să nu facem spam.
+  Nu pastrăm sub nicio formă e-mail-urile pe care ni le dai în baza de date. O dată
+  ce au fost trimise invitațiile, adresele de e-mail sunt șterse de la noi.
+</p>
+{% endif %}
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+<div id="add_news_form_toggle"><a href="#" onclick="return false;">
+    {% if add_inline_about_name %}
+    Adaugă o bârfă despre {{add_inline_about_name}}
+    {% else %}
+    Ai o bârfă caldă? Aici ai șansa să o faci publică.
+    {% endif %}
+  </a></div>
+<div id="div_add_news_form">
+  <h3>Adaugă bârfa</h3>
+  <div id="result_success"> Am adăugat vestea </div>
+  <div id="result_fail"> 
+    Verifică următoarele:
+    <ul>
+      <li> titlul să fie completat </li>
+      <li> textul să fie completat </li>
+      <li> una din imagini să nu fie mai mare de 2.5MB </li>
+      <li> video-ul să aibă adresa corectă </li>
+    </ul>
+  </div>
+  <form method="POST" action="{% url news-add_inline %}" enctype="multipart/form-data" id="add_news_form">
+    {% csrf_token %}
+    <div class="error">
+      {{form_add_news.anonymous.errors}}
+    </div>
+    <div class="error">
+      {{form_add_news.fb_wall.errors}}
+    </div>
+    <div class="error">
+      {{form_add_news.about_name.errors}}
+    </div>
+    <div class="error">
+      {{form_add_news.title.errors}}
+    </div>
+    <div class="error">
+      {{form_add_news.text.errors}}
+    </div>
+    <div class="error">
+      {{form_add_news.video.errors}}
+    </div>
+    {% if not add_news_about_name_hide %}
+    <div class="adauga-barfa">
+        <label for="id_about_name">Despre:</label>{{form_add_news.about_name}}
+    </div>
+    {% endif %}
+    {{form_add_news.about_id}}
+    <div class="adauga-barfa">
+      <label for="id_title">Titlu:</label>{{form_add_news.title}}
+    </div>
+    <div class="adauga-barfa">
+      <label for="id_text">Bârfa:</label><textarea name="text" id="id_text"></textarea>
+        <!-- am inlocuit {{form_add_news.label.text}} si {{form_add_news.text}}, nu gaseam unde sunt sa le modific textul si numarul de rows -->
+    </div>
+    <div class="nav-adauga">
+      <span class="nav-adauga-adauga">&nbsp;</span>
+      <span class="images-placeholder"></span>
+      <span class="video-placeholder"></span>
+      <span class="anonymous-placeholder">{{form_add_news.anonymous.label_tag}}{{form_add_news.anonymous}}</span>
+      <span class="wall-placeholder">{{form_add_news.fb_wall.label_tag}}{{form_add_news.fb_wall}}</span>
+    </div>
+    <div class="nav-adauga">
+      <span class="nav-adauga-adauga">&nbsp;</span>
+      <span id="adauga-video">
+        {{form_add_news.video}}
+      </span>
+      <span id="add_news_form_cancel"><a href="#"> renunță </a></span>
+      <span id="add_news_form_submit"><a href="#"> adaugă </a></span>
+    </div>
+    <div id="adauga-images">
+      <input type="file" name="images" id="multi-image"/>
+    </div>
+  </form>
+</div>

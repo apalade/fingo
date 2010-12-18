@@ -1,0 +1,14 @@
+Salut :)
+
+Prietenul tau <a href="http://fingo.ro{% url profile-view username %}">{{name}} </a>
+a considerat ca te-ar putea interesa sa vii si tu in reteaua
+<a href="http://fingo.ro">Fingo.ro</a>, cea mai intriganta retea sociala din Romania.
+Vino sa vezi despre ce e vorba si de ce
+<a href="http://fingo.ro{% url profile-view username %}"> {{name}} </a>
+ti-a recomandat-o.
+
+<br/><br/>
+<a href="http://fingo.ro">Fingo.ro</a> | 
+<a href="http://fingo.ro{% url notif-blacklist %}?email={{email}}">Nu vreau sa mai aud de Fingo.ro vreodata </a>
+<a href="mailto:office@fingo.ro">Contact Fingo.ro</a>
+

@@ -1,0 +1,113 @@
+<<<<<<< .mine
+<div id="header">
+  <a href="{% url news-index %}"><div id="logo"></div></a>
+  <div id="banner">
+    {% if user.is_authenticated %}
+    
+    <a {% if curr_page == 'news-index' %}class="selected"{% endif %}
+        href="{% url news-index %}" id="meniu_prima" title="Prima pagina">&nbsp;</a>
+
+    <a {% if curr_page == 'profile-index' %}class="selected"{% endif %}
+        href="{% url profile-index %}" id="meniu_barfe" title="Barfe">&nbsp;</a>
+
+    <a {% if curr_page == 'profile-view' %}class="selected"{% endif %}
+        href="{% url profile-view user.username %}" id="meniu_profil" title="Profil">&nbsp;</a>
+
+    
+    <a {% if curr_page == 'friends-index' %}class="selected"{% endif %}
+        href="{% url friends-index %}" id="meniu_prieteni" title="Prieteni">&nbsp;</a>
+
+    <div id="meniu2">
+      <div>
+        <!-- <a class="cont_mesaje" href="#" title="Mesajele tale" /></a> -->
+        {% if notif.friend_req %}
+        <a class="cont_prieteni" href="{% url friends-index %}" title="Solicitari prietenie"/></a>
+        {% endif %}
+        {% if notif.new_gossip_me %}
+        <a class="cont_barfe" href="{% url profile-index %}" title="Barfe noi despre tine"/></a>
+        {% endif %}
+        <a class="logout" href="{% url profile-logout %}" title="Iesire"/></a>
+      </div>
+      <br/>
+      <!--
+      <form action="?" method="get">
+        <input type="text" name="q" value="" class="input" />
+        <input type="Submit" value="Cauta" class="submit" />
+      </form>-->
+    </div>
+    {% else %}
+    <p align="center">
+      <a href="{% url profile-login %}">
+      <font style="font-size: 16pt;" face="Georgia">Vrei sa afli care sunt
+        cele mai noi <b>barfe</b> din orasul tau?<br />
+        Ai o <b>barfa</b> nemaipomenita si vrei s-o faci cunoscuta?<br />
+        Hai in comunitatea <b>Fingo</b> !</font>
+      </a>
+    </p>
+    {% endif %}
+  </div>
+  <div id="scroll">
+    <ul id="scroller">
+      {% for news in news_scroll %}
+      <li><span class="stea" title="Stea barfa" ></span></li>
+      <li>{{news|safe}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div> 
+=======
+<div id="header">
+  <div id="logo"><img src="{{MEDIA_URL}}images/logo.jpg" alt="logo" title="Fingo.ro" /></div>
+  <div id="banner">
+    {% if user.is_authenticated %}
+    
+    <a {% if curr_page == 'news-index' %}class="selected"{% endif %}
+        href="{% url news-index %}" id="meniu_prima" title="Prima pagina">&nbsp;</a>
+
+    <a {% if curr_page == 'profile-index' %}class="selected"{% endif %}
+        href="{% url profile-index %}" id="meniu_barfe" title="Barfe">&nbsp;</a>
+
+    <a {% if curr_page == 'profile-view' %}class="selected"{% endif %}
+        href="{% url profile-view user.username %}" id="meniu_profil" title="Profil">&nbsp;</a>
+
+    
+    <a {% if curr_page == 'friends-list' %}class="selected"{% endif %}
+        href="{% url friends-list %}" id="meniu_prieteni" title="Prieteni">&nbsp;</a>
+
+    <div id="meniu2">
+      <div>
+        <!--<a href="#"><img src="{{MEDIA_URL}}images/cont_mesaje.jpg" alt="poza" title="Mesajele tale" /></a>&nbsp;&nbsp;-->
+        {% if notif.friend_req %}
+        <a href="{% url friends-index %}"><img src="{{MEDIA_URL}}images/cont_prieteni.jpg" alt="poza" title="Solicitari prietenie"/></a>
+        {% endif %}
+        {% if notif.new_gossip_me %}
+        <a href="{% url profile-index %}"><img src="{{MEDIA_URL}}images/cont_barfe.jpg" alt="poza" title="Barfe noi despre tine"/></a>
+        {% endif %}
+        <a href="{% url profile-logout %}"><img src="{{MEDIA_URL}}images/logout.gif" alt="poza" title="Iesire"/></a>
+      </div>
+      <br/>
+      <form action="?" method="get">
+        <input type="text" name="q" value="" class="input" />
+        <input type="Submit" value="Cauta" class="submit" />
+      </form>
+    </div>
+    {% else %}
+    <p align="center">
+      <a href="{% url profile-login %}">
+      <font style="font-size: 16pt;" face="Georgia">Vrei sa afli care sunt
+        cele mai noi <b>barfe</b> din orasul tau?<br />
+        Ai o <b>barfa</b> nemaipomenita si vrei s-o faci cunoscuta?<br />
+        Hai in comunitatea <b>Fingo</b> !</font>
+      </a>
+    </p>
+    {% endif %}
+  </div>
+  <div id="scroll">
+    <ul id="scroller">
+      {% for news in news_scroll %}
+      <li><img src="{{MEDIA_URL}}images/stea.jpg" alt="Stea" title="Stea barfa" /></li>
+      <li>{{news|safe}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div> >>>>>>> .r47
